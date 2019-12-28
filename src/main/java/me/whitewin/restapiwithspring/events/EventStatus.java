@@ -1,6 +1,9 @@
 package me.whitewin.restapiwithspring.events;
 
+import org.springframework.stereotype.Component;
+
+
 public enum EventStatus {
 
-    DRAFT, PUBLISHED, BEGIN_ENROLLMENT;
+    DRAFT, PUBLISHED, BEGAN_ENROLLMENT;
 }
