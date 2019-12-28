@@ -15,6 +15,7 @@ public class Event {
     private LocalDateTime closeEnrollmentDateTime;
     private LocalDateTime beginEventDateTime;
     private LocalDateTime endEventDateTime;
+    // location이 있다면 오프라인 모임
     private String location;
     private int basePrice;
     private int maxPrice;
