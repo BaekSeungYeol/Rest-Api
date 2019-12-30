@@ -103,7 +103,6 @@ public class EventControllerTests {
     }
 
     @Test
-
     @TestDescription("입력 값이 비어있는 경우에 에러가 발생하는 테스트")
     public void createEvent_Bad_Request_Empty_Input() throws Exception
     {
@@ -133,10 +132,15 @@ public class EventControllerTests {
                 .location("노원역 D2 팩토리")
                 .build();
 
+        // 에러 본문에 메세지가 있기를 바라고있음
         this.mockMvc.perform(post("/api/events")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(eventDto)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0].objectName").exists())
+                .andExpect(jsonPath("$[0].defaultMessage").exists())
+                .andExpect(jsonPath("$[0].code").exists());
     }
+
 }
 
