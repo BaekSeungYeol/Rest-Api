@@ -57,7 +57,7 @@ public class EventControllerTests {
                 .basePrice(100)
                 .maxPrice(200)
                 .limitOfEnrollment(100)
-                .location("노원역 D2 팩토리")
+                .location("강남역 D2 팩토리")
                 .build();
 
         mockMvc.perform(post("/api/events/")
@@ -69,8 +69,8 @@ public class EventControllerTests {
                 .andExpect(jsonPath("id").exists())
                 .andExpect(header().exists(HttpHeaders.LOCATION))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("id").value(Matchers.not(100)))
-                .andExpect(jsonPath("free").value(Matchers.not(true)))
+                .andExpect(jsonPath("free").value(false))
+                .andExpect(jsonPath("offline").value(true))
                 .andExpect(jsonPath("eventStatus").value(EventStatus.DRAFT.name()));
     }
 
@@ -88,7 +88,7 @@ public class EventControllerTests {
                 .basePrice(100)
                 .maxPrice(200)
                 .limitOfEnrollment(100)
-                .location("노원역 D2 팩토리")
+                .location("강남역 D2 팩토리")
                 .free(true)
                 .offline(false)
                 .eventStatus(EventStatus.PUBLISHED)
@@ -129,7 +129,7 @@ public class EventControllerTests {
                 .basePrice(10000)
                 .maxPrice(200)
                 .limitOfEnrollment(100)
-                .location("노원역 D2 팩토리")
+                .location("강남역 D2 팩토리")
                 .build();
 
         // 에러 본문에 메세지가 있기를 바라고있음

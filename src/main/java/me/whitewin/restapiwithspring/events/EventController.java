@@ -40,6 +40,8 @@ public class EventController {
             return ResponseEntity.badRequest().body(errors);
         }
         Event event =modelMapper.map(eventDto, Event.class);
+        //유료, 무료 여부 변경
+        event.update();
         Event newEvent = this.eventRepository.save(event);
         URI createdUri = linkTo(EventController.class).slash(newEvent.getId()).toUri();
         return ResponseEntity.created(createdUri).body(event);
