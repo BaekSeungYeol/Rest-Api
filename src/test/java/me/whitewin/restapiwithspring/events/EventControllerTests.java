@@ -36,27 +36,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-// @AutoConfigureRestDocs
+@AutoConfigureRestDocs
 @Import(RestDocsConfiguration.class)
 public class EventControllerTests {
 
     @Autowired
     WebApplicationContext webApplicationContext;
 
-   //  @Autowired
+    @Autowired
     private MockMvc mockMvc;
 
     @Rule
     public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
-
-
-    @Before()
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .apply(documentationConfiguration(this.restDocumentation))
-                .build();
-
-    }
 
     @Autowired
     ObjectMapper objectMapper;
