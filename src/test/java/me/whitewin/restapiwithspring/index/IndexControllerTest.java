@@ -1,5 +1,6 @@
 package me.whitewin.restapiwithspring.index;
 
+import me.whitewin.restapiwithspring.common.BaseControllerTest;
 import me.whitewin.restapiwithspring.common.RestDocsConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,15 +17,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureRestDocs
-@Import(RestDocsConfiguration.class)
-public class IndexControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+public class IndexControllerTest extends BaseControllerTest {
 
     @Test
     public void index() throws Exception {
