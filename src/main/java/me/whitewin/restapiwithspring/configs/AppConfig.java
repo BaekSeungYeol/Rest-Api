@@ -1,6 +1,7 @@
 package me.whitewin.restapiwithspring.configs;
 
 import me.whitewin.restapiwithspring.accounts.Account;
+import me.whitewin.restapiwithspring.accounts.AccountRepository;
 import me.whitewin.restapiwithspring.accounts.AccountRole;
 import me.whitewin.restapiwithspring.accounts.AccountService;
 import org.modelmapper.ModelMapper;
@@ -34,14 +35,24 @@ public class AppConfig {
             @Autowired
             AccountService accountService;
 
+            @Autowired
+            AppProperties appProperties;
+
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                Account seungyeol = Account.builder()
-                        .email("beck33333@email.com")
-                        .password("seungyeol")
+                Account admin = Account.builder()
+                        .email(appProperties.getAdminUsername())
+                        .password(appProperties.getAdminPassword())
                         .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
                         .build();
-                accountService.saveAccount(seungyeol);
+                accountService.saveAccount(admin);
+
+                Account user = Account.builder()
+                        .email(appProperties.getUserUsername())
+                        .password(appProperties.getUserPassword())
+                        .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
+                        .build();
+                accountService.saveAccount(admin);
             }
         };
     }
