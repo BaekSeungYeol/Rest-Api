@@ -245,8 +245,7 @@ public class EventControllerTests extends BaseControllerTest {
 
         //When & Then
         this.mockMvc.perform(get("/api/events")
-                        .header(HttpHeaders.AUTHORIZATION, getBearerToken())
-                        .param("page", "1")
+                         .param("page", "1")
                     .param("size","10")
                     .param("sort", "name,DESC"))
                 .andDo(print())
