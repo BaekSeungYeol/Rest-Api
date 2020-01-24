@@ -10,6 +10,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +31,16 @@ public class EventController {
 
     private final EventValidator eventValidator;
 
-    public EventController(EventRepository eventRepository, ModelMapper modelMapper,EventValidator eventValidator) {
+    public EventController(EventRepository eventRepository, ModelMapper modelMapper, EventValidator eventValidator) {
         this.eventRepository = eventRepository;
         this.modelMapper = modelMapper;
         this.eventValidator = eventValidator;
     }
 
+
     @PostMapping
     public ResponseEntity createEvent(@RequestBody @Valid EventDto eventDto, Errors errors) {
+
         if(errors.hasErrors()) {
             return badRequest(errors);
         }
@@ -60,6 +64,8 @@ public class EventController {
 
    @GetMapping
    public ResponseEntity queryEvents(Pageable pageable, PagedResourcesAssembler<Event> assembler) {
+       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
        Page<Event> page = this.eventRepository.findAll(pageable);
        var pagedResources = assembler.toResource(page, e-> new EventResource(e));
        pagedResources.add(new Link("/docs/index.html#resources-events-list").withRel("profile"));
