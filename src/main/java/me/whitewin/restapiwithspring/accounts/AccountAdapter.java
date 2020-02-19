@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AccountAdapter extends User {
+
     private Account account;
 
     public AccountAdapter(Account account) {
@@ -18,7 +19,7 @@ public class AccountAdapter extends User {
 
     private static Collection<? extends GrantedAuthority> authorities(Set<AccountRole> roles) {
         return roles.stream()
-                .map(r -> new SimpleGrantedAuthority("ROLE" + r.name()))
+                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
                 .collect(Collectors.toSet());
     }
 
@@ -26,3 +27,4 @@ public class AccountAdapter extends User {
         return account;
     }
 }
+

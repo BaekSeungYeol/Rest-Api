@@ -2,7 +2,6 @@ package me.whitewin.restapiwithspring.accounts;
 
 import lombok.*;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,7 +19,8 @@ public class Account {
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Set<AccountRole> roles;
+
 }
 

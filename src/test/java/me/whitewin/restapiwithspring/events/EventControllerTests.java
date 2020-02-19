@@ -291,7 +291,7 @@ public class EventControllerTests extends BaseControllerTest {
     public void getEvent() throws Exception {
         //Given
         Account account = this.createAccount();
-        Event event = this.generateEvent(100);
+        Event event = this.generateEvent(100,account);
 
         // When & Then
         this.mockMvc.perform(get("/api/events/{id}", event.getId()))

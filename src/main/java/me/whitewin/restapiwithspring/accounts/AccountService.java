@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class AccountService implements UserDetailsService{
+public class AccountService implements UserDetailsService {
 
     @Autowired
     AccountRepository accountRepository;
@@ -34,11 +34,5 @@ public class AccountService implements UserDetailsService{
         Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
         return new AccountAdapter(account);
-    }
-
-    private Collection<? extends GrantedAuthority> authorities(Set<AccountRole> roles) {
-        return roles.stream()
-                .map(r -> new SimpleGrantedAuthority("ROLE" + r.name()))
-                .collect(Collectors.toSet());
     }
 }
